@@ -19,9 +19,9 @@ while false_guesses != 5:
             deployed_letters.append(letter)
             break
     if letter in word:
-        for x in range(len(word)):
-            if letter == word[x]:
-                word_displayer[x] = letter
+        for i, x in enumerate(word):
+            if x == letter:
+                word_displayer[i] = x
     else:
         print("Letter not in word")
         false_guesses += 1
