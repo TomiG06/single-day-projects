@@ -1,4 +1,3 @@
-from numpy.random.mtrand import rand
 from pandas import DataFrame
 import numpy as np
 import random
