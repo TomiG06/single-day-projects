@@ -1,7 +1,6 @@
 from pandas import DataFrame
 import numpy as np
 import random
-import sys
 
 table = np.array([[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]])
 
