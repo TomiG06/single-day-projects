@@ -18,8 +18,7 @@ def deploy(x, y, m):
         table[x][{"a":0, "b":1, "c":2}.get(y)] = m
         valid.remove(y+str(x))
         return True
-    else:
-        return False
+    return False
 
 def check():
     for x in table:
@@ -55,12 +54,10 @@ while True:
         break
     while True:
         p = input("Enter position(a0): ")
-        if p == "ex":
-            sys.exit()
         try:
             ver = deploy(int(p[1]), p[0], 'X')
             if ver == True:
-                com()
+                com() if check() == None else print(check())
                 break
             else:
                 print('That position is already assigned')
