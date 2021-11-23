@@ -6,10 +6,11 @@ word_displayer = ["-" for x in range(len(word))]
 false_guesses = 0
 deployed_letters = []
 
-print("      HANGMAN       ")
+print("\tHANGMAN")
 print("I am thinking of a word...")
 
 while false_guesses != 5:
+    print(f"False Guesses: {false_guesses}/5")
     print("".join(word_displayer))
     while True:
         letter = input("Type a letter: ")
