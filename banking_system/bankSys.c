@@ -21,10 +21,9 @@ void writeBalance(float amount) {
 int withdraw(float amount) {
     if(amount > readBalance()) {
         return 1;
-    } else {
-        writeBalance(readBalance() - amount);
-        return 0;
     }
+    writeBalance(readBalance() - amount);
+    return 0;
 }
 
 void deposit(float amount) {
@@ -55,7 +54,7 @@ int main() {
     }
     printf(__DATE__);
     printf("\n1.Check Balance\n2.Deposit\n3.Withdraw\n4.Return card\n");
-    while(user != 4) {
+    while(1) {
         printf(">> ");
         scanf("%d", &user);
         switch(user) {
