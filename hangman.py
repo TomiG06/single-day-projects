@@ -1,8 +1,8 @@
-import sys, random
+import random
 
 words = ["hello", "skate", "jazz", "python", "hangman", "car"]
 word = random.choice(words)
-word_displayer = ["-" for x in range(len(word))]
+word_displayer = ["-" for x in word]
 false_guesses = 0
 deployed_letters = []
 
@@ -28,7 +28,7 @@ while false_guesses != 5:
         false_guesses += 1
     if "".join(word_displayer) == word:
         print("You won! Word: " + word)
-        sys.exit()
+        break
 
 else:
     print("You lost, word:", word)
