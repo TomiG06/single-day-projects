@@ -6,14 +6,14 @@ class Cards_Stack:
         for _ in range(12):
             self.cards.append(10)
         random.shuffle(self.cards)
-        self.TOP = len(self.cards)
+        self.TOP = len(self.cards)-1
     
-    def peek(self):
-        return self.cards[self.TOP - 1]
-
-    def pop(self):
+    def give(self):
+        #Combination of Peek and Pop stack methods
+        card = self.cards[self.TOP]
         self.cards.pop()
         self.TOP -= 1
+        return card
 
 cards = Cards_Stack()
 
@@ -25,8 +25,12 @@ class Player:
     
     def hit(self, card):
         self.cards += card
-        if self.cards == 21:
-            print(f"{self.name} won")
+        if self.cards == 21 or self.cards > 21:
+            print(f"{player.name}: {player.cards}\nOpponent: {opponent.cards}")
+            if self.cards == 21:
+                print(f"{self.name} won")
+            else:
+                print(f"{player.name} got burnt\nBob won!") if self == player else print(f"Bob got burnt\n{player.name} won")
             sys.exit()
 
     def stay(self):
@@ -38,17 +42,11 @@ opponent = Player("Bob")
 while player.cards < 21 and opponent.cards < 21 and player.plays:
     print(f"{player.name}: {player.cards}\nOpponent: {opponent.cards}")
     if input("Hit or Stay(H, S)? ").upper() == "H":
-        player.hit(cards.peek())
-        cards.pop()
+        player.hit(cards.give())
+
     else:
         player.stay()
-    opponent.hit(cards.peek())
-    cards.pop()
+    opponent.hit(cards.give())
     if not player.plays:
         while opponent.cards < 22:
-            opponent.hit(cards.peek())
-            cards.pop()
-
-if player.cards > 21 and opponent.cards < 22: print("You are burnt")
-if opponent.cards > 21 and player.cards < 22: print(f"Oppenent is burnt\n{player.name} wins")
-if opponent.cards > 21 and player.cards > 21: print(f"{player.name} and {opponent.name} are both burnt\nDRAW")
+            opponent.hit(cards.give())
