@@ -1,8 +1,7 @@
 from pandas import DataFrame
 import numpy as np
-import random
 
-table = np.array([[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]])
+table = np.array([[" ", " ", " "]] * 3)
 
 valid = ["a0", "a1", "a2", "b0", "b1", "b2", "c0", "c1", "c2"]
 
@@ -13,8 +12,9 @@ def deptab():
 
 def deploy(x, y, m):
     global table, valid
-    if table[x][{"a":0, "b":1, "c":2}.get(y)] == " ":
-        table[x][{"a":0, "b":1, "c":2}.get(y)] = m
+    columns = {"a":0, "b":1, "c":2}
+    if table[x][columns.get(y)] == " ":
+        table[x][columns.get(y)] = m
         valid.remove(y+str(x))
         return True
     return False
@@ -39,7 +39,7 @@ def check():
         return "Draw"
 
 def com():
-    p = random.choice(valid)
+    p = np.random.choice(valid)
     deploy(int(p[1]), p[0], "O")
 
 while True:
