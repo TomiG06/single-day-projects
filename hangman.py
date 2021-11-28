@@ -2,7 +2,7 @@ import random
 
 words = ["hello", "skate", "jazz", "python", "hangman", "car"]
 word = random.choice(words)
-word_displayer = ["-" for x in word]
+word_displayer = ["-"] * len(word)
 false_guesses = 0
 deployed_letters = []
 

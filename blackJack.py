@@ -2,7 +2,7 @@ import random, sys
 
 class Cards_Stack:
     def __init__(self):
-        self.cards = [x for _ in range(4) for x in range(1, 11)] + [10 for _ in range(12)]
+        self.cards = [x for x in range(1, 11)]*4 + [10]*12
         random.shuffle(self.cards)
         self.TOP = len(self.cards)-1
     def give(self):
