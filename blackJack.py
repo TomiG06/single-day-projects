@@ -2,12 +2,9 @@ import random, sys
 
 class Cards_Stack:
     def __init__(self):
-        self.cards = [x for _ in range(4) for x in range(1, 11)]
-        for _ in range(12):
-            self.cards.append(10)
+        self.cards = [x for _ in range(4) for x in range(1, 11)] + [10 for _ in range(12)]
         random.shuffle(self.cards)
         self.TOP = len(self.cards)-1
-    
     def give(self):
         #Combination of Peek and Pop stack methods
         card = self.cards[self.TOP]
@@ -48,5 +45,5 @@ while player.cards < 21 and opponent.cards < 21 and player.plays:
         player.stay()
     opponent.hit(cards.give())
     if not player.plays:
-        while opponent.cards < 22:
+        while True:
             opponent.hit(cards.give())
