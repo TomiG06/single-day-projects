@@ -22,7 +22,7 @@ class Player:
     
     def hit(self, card):
         self.cards += card
-        if self.cards == 21 or self.cards > 21:
+        if self.cards >= 21:
             print(f"{player.name}: {player.cards}\nOpponent: {opponent.cards}")
             if self.cards == 21:
                 print(f"{self.name} won")
