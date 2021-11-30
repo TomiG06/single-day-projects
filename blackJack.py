@@ -21,6 +21,11 @@ class Player:
         self.name = name
     
     def hit(self, card):
+        if card == 1:
+            if self != opponent:
+                card = 1 if input("You got an Ace!\nWill you count it as 1 or 11?") == "1" else 11
+            else:
+                card == 1 if self.cards+11 > 21 else 11
         self.cards += card
         if self.cards >= 21:
             print(f"{player.name}: {player.cards}\nOpponent: {opponent.cards}")
