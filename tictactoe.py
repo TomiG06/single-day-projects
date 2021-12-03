@@ -1,5 +1,6 @@
 from pandas import DataFrame
 import numpy as np
+import os
 
 table = np.array([[" ", " ", " "]] * 3)
 
@@ -43,6 +44,7 @@ def com():
     deploy(int(p[1]), p[0], "O")
 
 while True:
+    os.system("clear")
     print('Player: X\nComputer: O')
     deptab()
     print(valid)
