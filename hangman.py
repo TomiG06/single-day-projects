@@ -7,7 +7,6 @@ false_guesses = 0
 deployed_letters = []
 
 print("\tHANGMAN")
-print("I am thinking of a word...")
 
 while false_guesses != 5:
     print(f"False Guesses: {false_guesses}/5")
