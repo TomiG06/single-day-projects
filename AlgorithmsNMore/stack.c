@@ -9,11 +9,8 @@ struct Stack {
 }s;
 
 int peek(struct Stack s) {
-	if(s.TOP>-1) {
-		return s.stack[s.TOP];
-	} else {
-		return -1;
-	}
+	if(s.TOP>-1) { return s.stack[s.TOP]; }
+       	else { return -1; }
 }
 
 
