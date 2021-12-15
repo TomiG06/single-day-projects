@@ -53,10 +53,10 @@ if __name__ == "__main__":
         os.system("clear")
         print('Player: X\nComputer: O')
         board.deptab()
-        print(board.valid)
+        print("Valid positions:", board.valid)
 
         c = board.check()
-        if c != None:
+        if c is not None:
             print(c)
             break
         
