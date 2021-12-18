@@ -7,7 +7,7 @@ class Level:
         self.n = n
         self.max = 2*n**2 if n < 5 else 32
 
-#We' ll be using first 4 levels
+#We' ll be using 7 levels
 Kl = Level(1)
 Ll = Level(2)
 Ml = Level(3)
@@ -24,7 +24,7 @@ levels = [Kl, Ll, Ml, Nl, Ol, Pl, Ql]
 def distribute(a):
     distr = []
     for l in levels:
-        if 9 <= a <= 26 and len(distr) >= 1 and l.max > 8:
+        if 9 <= a <= 26 and l.max > 8:
             while (a - 18 > 0 or a - 8 > 0) and a >= 8 :
                 distr.append(18) if a - 18 > 0 else distr.append(8)
                 a -= distr[-1]
@@ -43,7 +43,3 @@ def distribute(a):
     group = len(distr) 
     period = distr[-1]
     return distr, group, period
-
-
-for x in range(1, 55):
-    print(x, distribute(x))
