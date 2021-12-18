@@ -21,21 +21,21 @@ levels = [Kl, Ll, Ml, Nl, Ol, Pl, Ql]
 
 
 #Distributing electrons
-def distribute(a):
+def distribute(e):
     distr = []
     for l in levels:
-        if 9 <= a <= 26 and l.max > 8:
-            while (a - 18 > 0 or a - 8 > 0) and a >= 8 :
-                distr.append(18) if a - 18 > 0 else distr.append(8)
-                a -= distr[-1]
-            distr.append(a)
-            a = 0
-        if a <= 0: break
-        if a - l.max > 0:
+        if 9 <= e <= 26 and l.max > 8:
+            while (e - 18 > 0 or e - 8 > 0) and e >= 8 :
+                distr.append(18) if e - 18 > 0 else distr.append(8)
+                e -= distr[-1]
+            distr.append(e)
+            e = 0
+        if e <= 0: break
+        if e - l.max > 0:
             d = l.max
         else:
-            d = a
-        a -= d
+            d = e
+        e -= d
 
         distr.append(d)
     
