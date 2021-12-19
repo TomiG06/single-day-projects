@@ -1,5 +1,6 @@
 #Algorithm to distribute electrons of an atom in energy levels
-#Find more about it here: https://en.wikipedia.org/wiki/Energy_level
+#Find more about energy levels: https://en.wikipedia.org/wiki/Energy_level
+#Able to distribute up to 54 electrons
 
 #Defining a class for levels
 class Level:
