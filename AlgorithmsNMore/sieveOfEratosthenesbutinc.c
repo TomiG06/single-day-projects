@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 //Sieve of Eratosthenes (But in C)
-//loops and prints through a list of numbers where non zero elements are prime
+//creates an array where non zero elements are prime numbers
 
 int main() {
         int limit;
@@ -16,12 +16,8 @@ int main() {
 
         for(int x = 0; x<len; ++x) {
                 int num = range[x];
-                if(num*num > limit) {
-                        break;
-                }
-                if(num == 0) {
-                        continue;
-                }
+                if(num*num > limit) { break; }
+                if(num == 0) { continue; }
                 for(int y=0; y<len; ++y) {
                         if(range[y]%num == 0 && range[y] != num) {
                                 range[y] = 0;
@@ -29,7 +25,9 @@ int main() {
                 }
         }
         for(int x=0; x<len; ++x) {
-                printf("%d\n", range[x]);
+		if(range[x]!=0) {
+	                printf("%d\n", range[x]);
+		}
         }
         free(range);
         return 0;
