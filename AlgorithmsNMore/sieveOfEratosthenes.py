@@ -3,7 +3,7 @@
 #Briefly: Algorithm to find all prime numbers of a given range
 
 limit = int(input("Enter limit: "))
-ret = [n for n in range(2, limit+1)]
+ret = list(range(2, limit+1))
 
 for n in ret:
     if n**2 < limit:
