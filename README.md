@@ -1,2 +1,2 @@
 # single-day-projects
-A repository with projects built in a day
+A repository with small projects built in a day or so
