@@ -18,9 +18,9 @@ int main() {
     for(int x = 0; x < strlen(txt); ++x) {
         int ascval = ascii(txt[x]);
         if(ascval <= MIN + 12) {
-            printf("%c", ascval + 13);
+            printf("%c", ascval + ROT);
         } else {
-            printf("%c", ascval-13);
+            printf("%c", ascval - ROT);
         }
     }
     printf("\n");
