@@ -9,16 +9,15 @@
 #define PROFILE "profiles.txt"
 using namespace std;
 
-void add_number(string fname, string lname, string number) {
+string add_number(string fname, string lname, string number) {
     if(number.length() != 10) {
-        cout<< "Phone number must contain 10 digits\n";
-        return;
+        return "Phone number must contain 10 digits\n";
     }
     ofstream file;
     file.open(NUMS_FILE, ios::app);
     file << lname << "," << fname << "," << number << endl;
     file.close();
-    cout<<"Instance added successfully!\n";
+    return "Instance added successfully!\n";
 }
 
 bool exists(string inst, string file_name) {
@@ -49,24 +48,27 @@ string search(string props, char status) {
             continue;
         }
         if(status == '2') {
-            if(line.substr(line.length()-10, line.length()) == props) { return line; }
+            if(line.substr(line.length()-10, line.length()) == props) { return line + '\n'; }
         }
     }
-    if(status == '1') { return list_of_names; }
-    return "There is no name with that number\n";
+    if(status == '1') {
+        if(list_of_names == "") {
+            return "No number found\n";
+        }
+        return list_of_names + '\n'; 
+    }
+    return "No name found\n";
 }
 
 bool sign_log(string name, string pass, bool sign=false) {
     if(sign) {
         if(exists(name, PROFILE)) {
-            cout << "Username " + name + " is already taken\n";
             return false;
         }
         ofstream file;
         file.open(PROFILE, ios::app);
         file << name << "," << pass << endl;
         file.close();
-        cout << "Signed in successfully!\n";
         return true;
     }
     string line;
@@ -74,31 +76,26 @@ bool sign_log(string name, string pass, bool sign=false) {
     while(getline(file, line)) {
         if(name == line.substr(0, line.find(','))) {
             if(pass == line.substr(line.find(',')+1, line.length()-1)) {
-                cout << "Logged in successfully!\n";
                 return true;
             }
-            cout << "Wrong password\n";
             return false;
         }
     }
-    cout << "There is no profile with that name\nBut you can use sign in to create one\n";
     return false;
 }
 
-void rmv(string inst, string file_name) {
+string rmv(string inst, string file_name) {
     string line, content, msg;
     ifstream file(file_name);
     if(file_name == NUMS_FILE) {
         inst = search(inst, '2');
         if(!exists(inst, NUMS_FILE)) { 
-            cout << "Our database contains no name with phone number " + inst.substr(inst.length()-10, inst.length()-1) + '\n';
-            return;
+            return "Our database contains no name with phone number " + inst.substr(inst.length()-10, inst.length()-1) + '\n';
         } 
         msg = "Number deleted successfully\n";
     } else {
         if(!exists(inst.substr(0, inst.find(',')), PROFILE)) {
-            cout << "There is no profile with the name " + inst.substr(0, inst.find(',')) + '\n';
-            return;
+            return "There is no account with the name " + inst.substr(0, inst.find(',')) + '\n';
         }
         msg = "Account deleted successfully\n";
     }
@@ -108,10 +105,8 @@ void rmv(string inst, string file_name) {
         } else {    
             if(inst.substr(0, inst.find(',')) == line.substr(0, line.find(','))) {
                 if(inst.substr(inst.find(',') + 1, inst.length()-1) != line.substr(line.find(',') + 1, line.length()-1)) {
-                    cout << "Wrong password\n";
-                    return;
+                    return "Wrong password\n";
                 }
-                cout << "Deleting Account..\n";
             } else {
                 content += line + '\n';
             }
@@ -122,13 +117,12 @@ void rmv(string inst, string file_name) {
     ofstream wfile(file_name);
     wfile << content;
     wfile.close();
-    cout << msg;
+    return msg;
 }
 
-void update_acc(string name, string pass) {
+bool update_acc(string name, string pass, string new_pass) {
     if(!exists(name, PROFILE)) {
-        cout << "There is no account with that username\n";
-        return;
+        return false;
     }
     string line;
     string content;
@@ -138,20 +132,16 @@ void update_acc(string name, string pass) {
             content += line;
         } else {
             if(pass != line.substr(line.find(',') + 1, line.length()-1)) {
-                cout << "Wrong password\n";
-                return;
+                return false;
             }
-            cout << "Enter new password: ";
-            cin >> pass;
-            line = line.substr(0, line.find(',') + 1) + pass + "\n";
+            line = line.substr(0, line.find(',') + 1) + new_pass + "\n";
             content += line;
-            cout << "Updating..\n";
         }
     }
     ofstream wfile(PROFILE);
     wfile << content;
     wfile.close();
-    cout << "Password updated successfully\n";
+    return true;
 }
 
 #endif

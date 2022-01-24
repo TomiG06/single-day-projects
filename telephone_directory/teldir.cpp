@@ -7,12 +7,12 @@
 int main() {
     string cmd;
     {
-        string name, pass;
+        string name, pass, new_pass;
         bool log_stat = false;
         cout<<"Telephone Directory\n";
         cout<<"1.Sign in\n2.Log in\n3.Delete Account\n4.Update Account\n5.Exit\n";
         while(1) {
-            cout << ">>";
+            cout << ">> ";
             cin>>cmd;
             switch(cmd[0]) {
                 case '1': case '2': case '4':
@@ -21,13 +21,29 @@ int main() {
                     cout << "Enter password: ";
                     cin >> pass;
                     if(cmd[0] == '1') {
-                        log_stat = sign_log(name, pass, true);   
+                        log_stat = sign_log(name, pass, true);
+                        if(!log_stat) {
+                            cout << "Username " + name + " is already taken\n";
+                            break;
+                        }  
+                        cout << "Signed in successfully!\n";
                     }
                     if(cmd[0] == '2') {
                         log_stat = sign_log(name, pass);
+                        if(!log_stat) {
+                            cout << "You either enetered a profile that doesn't exist or you entered wrong password\n";
+                            break;
+                        }
+                        cout << "Logged in successfully\n";
                     } 
                     if(cmd[0] == '4') {
-                        update_acc(name, pass);
+                        cout << "Enter new password: ";
+                        cin >> new_pass;
+                        if(!update_acc(name, pass, new_pass)) {
+                            cout << "You either enetered a profile that doesn't exist or you entered wrong password\n";
+                            break;
+                        }
+                        cout << "Password updated successfully!\n";
                     }
                     break;
                 case '3':
@@ -44,10 +60,10 @@ int main() {
                             while(getline(sfile, line)) {
                                 if(name == line.substr(0, line.find(','))) { break; }
                             }
-                            rmv(line ,PROFILE);
+                            cout << rmv(line ,PROFILE);
                         }
                     } else if(cmd == "2") {
-                        rmv(name + ',' + pass, PROFILE);
+                        cout << rmv(name + ',' + pass, PROFILE);
                     }
                     break;
                 case '5':
@@ -79,7 +95,7 @@ int main() {
                     cout << "Instance already exists\n";
                     break;
                 }
-                add_number(fn, ln, n);
+                cout << add_number(fn, ln, n);
                 break;
             case '2':
                 cout<<"1.Search by name(<first name> <last name>)\n2.Search by phone number\n>> ";
@@ -91,7 +107,7 @@ int main() {
                 cout << "Enter property: ";
                 cin.ignore();
                 getline(cin, prop);
-                cout << search(prop, cmd[0]) << endl;
+                cout << search(prop, cmd[0]);
                 break;
             case '3':
                 cout << "Enter SUP: ";
@@ -99,7 +115,7 @@ int main() {
                 if(cmd == SUP) {
                     cout << "Enter phone number: ";
                     cin >> cmd;
-                    rmv(cmd, NUMS_FILE);
+                    cout << rmv(cmd, NUMS_FILE);
                 } else {
                     cout << "Wrong SUP\n";
                 }
