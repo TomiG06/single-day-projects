@@ -10,22 +10,24 @@ int main() {
         string name, pass;
         bool log_stat = false;
         cout<<"Telephone Directory\n";
-        cout<<"1.Sign in\n2.Log in\n3.Delete Account\n4.Exit\n";
+        cout<<"1.Sign in\n2.Log in\n3.Delete Account\n4.Update Account\n5.Exit\n";
         while(1) {
             cout << ">>";
             cin>>cmd;
             switch(cmd[0]) {
-                case '1': case '2':
+                case '1': case '2': case '4':
                     cout << "Enter name: ";
                     cin >> name;
                     cout << "Enter password: ";
                     cin >> pass;
                     if(cmd[0] == '1') {
                         log_stat = sign_log(name, pass, true);   
-                    } else if(cmd[0] == '2') {
+                    }
+                    if(cmd[0] == '2') {
                         log_stat = sign_log(name, pass);
-                    } else {
-                        cout << "Invalid Input\n";
+                    } 
+                    if(cmd[0] == '4') {
+                        update_acc(name, pass);
                     }
                     break;
                 case '3':
@@ -48,7 +50,7 @@ int main() {
                         rmv(name + ',' + pass, PROFILE);
                     }
                     break;
-                case '4':
+                case '5':
                     cout<<"Terminating..\n";
                     return 0;
                 default:

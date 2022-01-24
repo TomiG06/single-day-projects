@@ -125,4 +125,33 @@ void rmv(string inst, string file_name) {
     cout << msg;
 }
 
+void update_acc(string name, string pass) {
+    if(!exists(name, PROFILE)) {
+        cout << "There is no account with that username\n";
+        return;
+    }
+    string line;
+    string content;
+    ifstream file(PROFILE);
+    while(getline(file, line)) {
+        if(name != line.substr(0, line.find(','))) {
+            content += line;
+        } else {
+            if(pass != line.substr(line.find(',') + 1, line.length()-1)) {
+                cout << "Wrong password\n";
+                return;
+            }
+            cout << "Enter new password: ";
+            cin >> pass;
+            line = line.substr(0, line.find(',') + 1) + pass + "\n";
+            content += line;
+            cout << "Updating..\n";
+        }
+    }
+    ofstream wfile(PROFILE);
+    wfile << content;
+    wfile.close();
+    cout << "Password updated successfully\n";
+}
+
 #endif
