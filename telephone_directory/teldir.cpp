@@ -60,10 +60,18 @@ int main() {
                             while(getline(sfile, line)) {
                                 if(name == line.substr(0, line.find(','))) { break; }
                             }
-                            cout << rmv(line ,PROFILE);
+                            if(!rmv(line, PROFILE)) {
+                                cout << "There is no account with the name " + line.substr(0, line.find(',')) + '\n';
+                                break;
+                            }
+                            cout << "Account deleted successfully!\n";
                         }
                     } else if(cmd == "2") {
-                        cout << rmv(name + ',' + pass, PROFILE);
+                        if(!rmv(name + ',' + pass, PROFILE)) {
+                            cout << "Either there is no account with the name " + name + " or you entered wrong password\n";
+                        break;
+                        }
+                        cout << "Account deleted successfully!\n";
                     }
                     break;
                 case '5':
@@ -119,7 +127,11 @@ int main() {
                 if(cmd == SUP) {
                     cout << "Enter phone number: ";
                     cin >> cmd;
-                    cout << rmv(cmd, NUMS_FILE);
+                    if(!rmv(cmd, NUMS_FILE)) {
+                        cout << "Our database contains no name with phone number " + cmd + "\n";
+                        break;
+                    }
+                    cout << "Number deleted successfully!\n";
                 } else {
                     cout << "Wrong SUP\n";
                 }

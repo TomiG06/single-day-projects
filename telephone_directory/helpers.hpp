@@ -5,8 +5,8 @@
 #include <fstream>
 #include <string>
 
-#define NUMS_FILE "instances.txt"
-#define PROFILE "profiles.txt"
+#define NUMS_FILE "instances.csv"
+#define PROFILE "profiles.csv"
 using namespace std;
 
 bool add_number(string fname, string lname, string number) {
@@ -84,28 +84,28 @@ bool sign_log(string name, string pass, bool sign=false) {
     return false;
 }
 
-string rmv(string inst, string file_name) {
+bool rmv(string inst, string file_name) {
     string line, content, msg;
     ifstream file(file_name);
     if(file_name == NUMS_FILE) {
         inst = search(inst, '2');
         if(!exists(inst, NUMS_FILE)) { 
-            return "Our database contains no name with phone number " + inst.substr(inst.length()-10, inst.length()-1) + '\n';
+            return false;
         } 
-        msg = "Number deleted successfully\n";
     } else {
         if(!exists(inst.substr(0, inst.find(',')), PROFILE)) {
-            return "There is no account with the name " + inst.substr(0, inst.find(',')) + '\n';
+            return false;
         }
-        msg = "Account deleted successfully\n";
     }
     while(getline(file, line)) {
         if(file_name == NUMS_FILE) {
-            if(inst != line) { content += line + '\n'; }
+            if(inst != line + '\n') {
+                content += line + '\n'; 
+            }
         } else {    
             if(inst.substr(0, inst.find(',')) == line.substr(0, line.find(','))) {
                 if(inst.substr(inst.find(',') + 1, inst.length()-1) != line.substr(line.find(',') + 1, line.length()-1)) {
-                    return "Wrong password\n";
+                    return false;
                 }
             } else {
                 content += line + '\n';
@@ -117,7 +117,7 @@ string rmv(string inst, string file_name) {
     ofstream wfile(file_name);
     wfile << content;
     wfile.close();
-    return msg;
+    return true;
 }
 
 bool update_acc(string name, string pass, string new_pass) {
