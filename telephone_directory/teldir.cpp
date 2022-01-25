@@ -95,7 +95,11 @@ int main() {
                     cout << "Instance already exists\n";
                     break;
                 }
-                cout << add_number(fn, ln, n);
+                if(add_number(fn, ln, n)) {
+                    cout << "Instance added successfully!\n";
+                } else {
+                    cout << "Phone number must contain 10 digits\n";
+                }
                 break;
             case '2':
                 cout<<"1.Search by name(<first name> <last name>)\n2.Search by phone number\n>> ";

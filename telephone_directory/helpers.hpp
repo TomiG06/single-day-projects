@@ -9,15 +9,15 @@
 #define PROFILE "profiles.txt"
 using namespace std;
 
-string add_number(string fname, string lname, string number) {
+bool add_number(string fname, string lname, string number) {
     if(number.length() != 10) {
-        return "Phone number must contain 10 digits\n";
+        return false;
     }
     ofstream file;
     file.open(NUMS_FILE, ios::app);
     file << lname << "," << fname << "," << number << endl;
     file.close();
-    return "Instance added successfully!\n";
+    return true;
 }
 
 bool exists(string inst, string file_name) {
