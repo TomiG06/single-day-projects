@@ -64,8 +64,6 @@ void init(short* board, char p) {
 
 int main() {
     short* board = (short*) calloc(9, 2);
-    int in;
-    char pc;
     while(1) {
         init(board, 1);
         init(board, 2);
