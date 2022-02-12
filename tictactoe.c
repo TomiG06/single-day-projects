@@ -14,7 +14,7 @@ void check(short* board) {
         if(board[x] == 0) break;
         if(board[x] != 0 && x == 8) {
             printf("Tie\n");
-            exit(0);
+            goto departure;
         }
     }
     switch(win(board)) {
@@ -22,12 +22,12 @@ void check(short* board) {
             return;
         case 1:
             printf("Player1 wins!\n");
-            goto win;
+            goto departure;
         case 2:
             printf("Player2 wins!\n");
-            goto win;
+            goto departure;
     }
-win:
+departure:
     free(board);
     exit(0);
    
@@ -42,7 +42,7 @@ char place(short* board, int pl, int pos) {
 }
 
 void display(short* board) {
-    printf("%d|%d|%d\n_____\n%d|%d|%d\n_____\n%d|%d|%d\n", board[0], board[1], board[2], board[3], board[4], board[5], board[6], board    [7], board[8]);
+    printf("%d|%d|%d\n_____\n%d|%d|%d\n_____\n%d|%d|%d\n", board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]);
 }
 
 void init(short* board, char p) {
