@@ -10,13 +10,6 @@ char win(short* board) {
 }
 
 void check(short* board) {
-    for(char x = 0; x<9; ++x) {
-        if(board[x] == 0) break;
-        if(board[x] != 0 && x == 8) {
-            printf("Tie\n");
-            goto departure;
-        }
-    }
     switch(win(board)) {
         case 0:
             return;
@@ -27,6 +20,13 @@ void check(short* board) {
             printf("Player2 wins!\n");
             goto departure;
     }
+    for(char x = 0; x<9; ++x) {
+        if(board[x] == 0) return;
+        if(x == 8 && board[x] != 0) {
+            printf("Tie");
+            goto departure;
+        }
+    }
 departure:
     free(board);
     exit(0);
@@ -34,21 +34,19 @@ departure:
 }
 
 char place(short* board, int pl, int pos) {
-    short p = (pl == 1) ? 1: 2;
     if(pos < 0 || pos > 8) return 2;
     if(board[pos]) return 0;
-    board[pos] = p;
+    board[pos] = pl;
     return 1;
 }
 
 void display(short* board) {
-    printf("%d|%d|%d\n_____\n%d|%d|%d\n_____\n%d|%d|%d\n", board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]);
+    printf("%d|%d|%d\n-----\n%d|%d|%d\n-----\n%d|%d|%d\n", board[0], board[1], board[2], board[3], board[4], board[5], board[6], board[7], board[8]);
 }
 
 void init(short* board, char p) {
     system("clear");
     display(board);
-    check(board);
     char pc;
     int in;
     char* msg = (p == 1) ? "Player1: " : "Player2: ";
@@ -60,6 +58,7 @@ void init(short* board, char p) {
         else if(!pc&1) printf("Invalid position\n");
         else break;
     }
+    check(board);
 }
 
 int main() {
