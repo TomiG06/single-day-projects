@@ -9,12 +9,12 @@ int main(int argc, char* argv[]){
     int limit = atoi(argv[1]);
     int len = limit-2;
     int* range = (int*) malloc(len*sizeof(int));
-	for(int i; i<len; ++i) range[i] = i+2;
+    for(int i = 0; i<len; ++i) range[i] = i+2;
     for(int x = 0; x<len; ++x) {
         int num = range[x];
         if(num*num > limit) break;
         if(num == 0) continue;
-        for(int y=0; y<len; ++y) if(range[y]%num == 0 && range[y] != num) range[y] = 0;
+        for(int y=num-2; y<len; y+=num) if(num!=range[y]) range[y] = 0;
     }
     for(int x=0; x<len; ++x) if(range[x]!=0) printf("%d\n", range[x]);
     free(range);

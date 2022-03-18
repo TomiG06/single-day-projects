@@ -8,9 +8,11 @@ ret = list(range(2, limit+1))
 
 for n in ret:
     if n**2 < limit:
-        for num in ret:
-            if num%n==0 and n!=num:
-                ret.remove(num)
+        num = 2*n
+        while num <= max(ret):
+            
+            if num in ret: ret.remove(num)
+            num+=n
     else:
         print(*ret)
         break
