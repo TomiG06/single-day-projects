@@ -1,28 +1,32 @@
+;Someday I will add the option to enter the limit like I did in other implementations
 section .data
     array dd 2, 3, 4 ,5 ,6 ,7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 , 23, 24, 25, 26, 27, 28, 29
 section .text
 global _start
 _start:
-    mov esi, 28
-    mov ecx, 0
+    mov esi, 28 ;length
+    mov ecx, 0 ;indexing
 mainLoop:
     cmp ecx, esi
     je exit
-    mov edx, [array+4*ecx]
-    cmp edx, 0
+
+    mov edx, [array+4*ecx] ;array -> address of array | 4 -> doubleword(4 bytes) | ecx -> index
+    cmp edx, 0 ;already initialized to 0
     je continue
+
     mov eax, edx
-    push edx
-    mul eax
+    push edx ;edx gets changed on mul instruction so we push it into the stack
+    mul eax ;eax in the power of 2 to check if greater than length
     cmp eax, esi
     jg exit
-    pop edx
+
+    pop edx ;popping edx out of the stack
     mov eax, edx
-    call iprint
     sub eax, 2
 removeMultiplies:
     cmp eax, esi
     jge continue
+
     mov dword[array+eax*4], 0
     add eax, edx
     jmp removeMultiplies
@@ -35,18 +39,20 @@ exit:
 printEl:
     cmp ecx, esi
     je quit
+
     mov eax, [array+4*ecx]
     cmp eax, 0
     je continuePrinting
+
     call iprint
 continuePrinting:
     inc ecx
     jmp printEl
 
 quit:
-    mov eax, 10
+    mov eax, 10 ;also print a linefeed in the end just for good looking :)
     push eax
-    mov eax, esp
+    mov eax, esp ;stack pointer
     call print
     mov eax, 1
     mov ebx, 0
