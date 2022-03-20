@@ -4,10 +4,16 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unordered_map>
 
 #define NUMS_FILE "instances.csv"
 #define PROFILE "profiles.csv"
 using namespace std;
+
+string hashpass(string pass) {
+    hash<string> hasher;
+    return to_string(hasher(pass));
+}
 
 bool add_number(string fname, string lname, string number) {
     if(number.length() != 10) {
@@ -67,7 +73,7 @@ bool sign_log(string name, string pass, bool sign=false) {
         }
         ofstream file;
         file.open(PROFILE, ios::app);
-        file << name << "," << pass << endl;
+        file << name << "," << hashpass(pass) << endl;
         file.close();
         return true;
     }
@@ -75,7 +81,7 @@ bool sign_log(string name, string pass, bool sign=false) {
     ifstream file(PROFILE);
     while(getline(file, line)) {
         if(name == line.substr(0, line.find(','))) {
-            if(pass == line.substr(line.find(',')+1, line.length()-1)) {
+            if(hashpass(pass) == line.substr(line.find(',')+1, line.length()-1)) {
                 return true;
             }
             return false;
