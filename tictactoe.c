@@ -10,27 +10,21 @@ char win(short* board) {
 }
 
 void check(short* board) {
-    switch(win(board)) {
-        case 0:
-            return;
-        case 1:
-            printf("Player1 wins!\n");
-            goto departure;
-        case 2:
-            printf("Player2 wins!\n");
-            goto departure;
+    char status = win(board);
+    if(status) {
+        printf("Player%d wins!\n", status);
+        goto departure;
     }
     for(char x = 0; x<9; ++x) {
-        if(board[x] == 0) return;
-        if(x == 8 && board[x] != 0) {
-            printf("Tie");
+        if(x < 8 && !board[x]) return;
+        if(x == 8 && board[x]) {
+            printf("Tie\n");
             goto departure;
         }
     }
 departure:
     free(board);
-    exit(0);
-   
+    exit(0); 
 }
 
 char place(short* board, int pl, int pos) {
