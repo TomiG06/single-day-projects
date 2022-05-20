@@ -6,9 +6,7 @@ class Cards_Stack:
         random.shuffle(self.cards)
     def give(self):
         #Combination of Peek and Pop stack methods
-        card = self.cards[-1]
-        self.cards.pop()
-        return card
+        return self.cards.pop()
 
 class Player:
     def __init__(self, name, player=True):
