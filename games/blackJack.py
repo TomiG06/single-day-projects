@@ -20,7 +20,7 @@ class Player:
             if self.player:
                 card = 1 if input("You got an Ace!\nWill you count it as 1 or 11?") == "1" else 11
             else:
-                card == 1 if self.cards+11 > 21 else 11
+                card = 1 if self.cards+11 > 21 else 11
         self.cards += card
         if self.cards >= 21:
             print(f"{self.name}: {self.cards}")

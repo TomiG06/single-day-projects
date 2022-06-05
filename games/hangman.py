@@ -2,7 +2,7 @@ import random
 
 words = ["hello", "skate", "jazz", "python", "hangman", "car"]
 word = random.choice(words)
-word_displayer = ["-"] * len(word)
+word_displayer = ["_"] * len(word)
 false_guesses = 0
 deployed_letters = []
 
@@ -19,9 +19,7 @@ while false_guesses != 5:
             deployed_letters.append(letter)
             break
     if letter in word:
-        for i, x in enumerate(word):
-            if x == letter:
-                word_displayer[i] = x
+        word_displayer[word.index(letter)] = letter
     else:
         print("Letter not in word")
         false_guesses += 1

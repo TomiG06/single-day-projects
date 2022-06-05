@@ -1,15 +1,10 @@
 from coders import encoder, decoder
+from sys import argv
 
-while True:
-    try:
-        user = input(">> ")
-        if user == "encode":
-            print(encoder(input("Text: ")))
-        elif user == "decode":
-            print(decoder(input("Text: ")))
-        elif user == "terminate":
-            break
-        else:
-            print("Invalid Input\nCommands: 'encode', 'decode', 'terminate'")
-    except (KeyError, TypeError):
-        print("Invalid Key")
+try:
+    if argv[1] == "-e":
+        print(encoder(argv[2]))
+    elif argv[1] == "-d":
+        print(decoder(argv[2]))
+except (KeyError, TypeError):
+    print("Invalid Key")
