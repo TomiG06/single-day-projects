@@ -40,29 +40,26 @@ void execute_cmd(char cmd) {
             break;
         case OPEN:
             {
-                int other_loops = 0;
+                int loops = 1; //initial one because we are already in one
 
                 if(!(*data_p)) {
-                    while(1) {
+                    while(loops) {
                         inst_p++;
-                        if(*inst_p == OPEN) other_loops++;
-                        else if(*inst_p == CLOSE && other_loops) other_loops--;
-                        else if(*inst_p == CLOSE && !other_loops) break;
+                        if(*inst_p == OPEN) loops++;
+                        else if(*inst_p == CLOSE) loops--;
                     }
                 }
-
             }
             break;
         case CLOSE:
             {
-                int other_loops = 0;
+                int loops = 1; //Same
 
                 if(*data_p) {
-                    while(1) {
+                    while(loops) {
                         inst_p--;
-                        if(*inst_p == CLOSE) other_loops++;
-                        else if(*inst_p == OPEN && other_loops) other_loops--;
-                        else if(*inst_p == OPEN && !other_loops) break;
+                        if(*inst_p == CLOSE) loops++;
+                        else if(*inst_p == OPEN) loops--;
                     }
                 }
             }
@@ -121,7 +118,6 @@ int main(int argc, char* argv[]) {
     while(*inst_p) {
         execute_cmd(*inst_p);
         inst_p++;
-//      putchar(*inst_p);
     }
 
     fclose(f);
